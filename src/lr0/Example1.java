@@ -17,7 +17,6 @@ public class Example1 {
         final var sandwichWriter = new SandwichWriter();
 
         final var input = new BufferedReader(new InputStreamReader(System.in));
-        final var output = new BufferedWriter(new OutputStreamWriter(System.out));
         final var sandwichValidator = new SandwichValidator();
         final var refrigeratorValidator = new RefrigeratorValidator();
 
@@ -25,15 +24,13 @@ public class Example1 {
         var sandwich = new Sandwich();
         var exit = false;
 
-        output.write("""
+        System.out.println("""
                 Программа создания бутербродов
                 Введите help для получения справки
                 """);
 
         while (!exit) {
-            output.newLine();
-            output.write("> ");
-            output.flush();
+            System.out.print("> ");
 
             var command = input.readLine().split("\s+");
             if (command.length == 0) {
@@ -43,19 +40,19 @@ public class Example1 {
             switch (command[0]) {
                 case "show" -> {
                     if (command.length == 1) {
-                        showSandwich(sandwich, output);
+                        showRefrigerator(refrigerator);
                         continue;
                     }
                     switch (command[1]) {
-                        case "ref" -> showRefrigerator(refrigerator, output);
-                        case "sw" -> showSandwich(sandwich, output);
+                        case "ref" -> showRefrigerator(refrigerator);
+                        case "sw" -> showSandwich(sandwich);
                     }
                 }
-                case "open" -> openRefrigerator(refrigerator, output);
-                case "close" -> closeRefrigerator(refrigerator, output);
+                case "open" -> openRefrigerator(refrigerator);
+                case "close" -> closeRefrigerator(refrigerator);
                 case "commit" -> {
-                    if (validate(refrigerator, sandwich, refrigeratorValidator, sandwichValidator, output)) {
-                        commit(refrigerator, sandwich, io, sandwichWriter, refrigeratorFile, output);
+                    if (validate(refrigerator, sandwich, refrigeratorValidator, sandwichValidator)) {
+                        commit(refrigerator, sandwich, io, sandwichWriter, refrigeratorFile);
                         refrigerator = io.readFromFile(refrigeratorFile);
                         sandwich = new Sandwich();
                     }
@@ -66,17 +63,19 @@ public class Example1 {
                 }
                 case "put" -> {
                     if (command.length == 1) {
-                        output.write("Пропущен обязательный аргумент itemNo");
+                        System.out.println("Пропущен обязательный аргумент itemNo");
                         continue;
                     }
                     int itemNo = Integer.parseInt(command[1]);
-                    putItemNoToSandwich(refrigerator, sandwich, itemNo, output);
+                    putItemNoToSandwich(refrigerator, sandwich, itemNo);
                 }
                 case "exit" -> exit = true;
-                case "help" -> showHelp(command, output);
-                default -> output.write("Неизвестная команда\n");
+                case "help" -> showHelp(command);
+                default -> System.out.println("Неизвестная команда");
             }
         }
+
+        input.close();
     }
 
     private static void commit(
@@ -84,64 +83,61 @@ public class Example1 {
         Sandwich sandwich,
         RefrigeratorIo refrigeratorIo,
         SandwichWriter sandwichWriter,
-        File refrigeratorFile,
-        BufferedWriter output
+        File refrigeratorFile
     ) throws IOException, RefrigeratorStateException {
-        commitRefrigerator(refrigerator, refrigeratorIo, output, refrigeratorFile);
-        commitSandwich(sandwich, sandwichWriter, output);
+        commitRefrigerator(refrigerator, refrigeratorIo, refrigeratorFile);
+        commitSandwich(sandwich, sandwichWriter);
     }
 
     private static boolean validate(
         Refrigerator refrigerator,
         Sandwich sandwich,
         RefrigeratorValidator refrigeratorValidator,
-        SandwichValidator sandwichValidator,
-        BufferedWriter output
-    ) throws IOException {
+        SandwichValidator sandwichValidator
+    ) {
         var errors = new ArrayList<ValidationError>();
 
         errors.addAll(sandwichValidator.validate(sandwich));
         errors.addAll(refrigeratorValidator.validate(refrigerator));
 
         for (var error: errors) {
-            output.write(error.getMessage());
-            output.newLine();
+            System.out.println(error.getMessage());
         }
 
         if (errors.size() > 0) {
-            output.write("Невозможно сохранить бутерброд\n");
+            System.out.println("Невозможно сохранить бутерброд");
             return false;
         }
 
         return true;
     }
 
-    private static void showHelp(String[] command, BufferedWriter output) throws IOException {
+    private static void showHelp(String[] command) {
         switch (command.length) {
             case 2:
             case 3:
                 switch (command[1]) {
-                    case "show"   -> showHelpShow(command, output);
-                    case "open"   -> showHelpOpen(output);
-                    case "close"  -> showHelpClose(output);
-                    case "commit" -> showHelpCommit(output);
-                    case "reset"  -> showHelpReset(output);
-                    case "put"    -> showHelpPut(output);
-                    case "exit"   -> showHelpExit(output);
-                    case "help"   -> showHelpMain(output);
-                    default       -> showHelpMain(output);
+                    case "show"   -> showHelpShow(command);
+                    case "open"   -> showHelpOpen();
+                    case "close"  -> showHelpClose();
+                    case "commit" -> showHelpCommit();
+                    case "reset"  -> showHelpReset();
+                    case "put"    -> showHelpPut();
+                    case "exit"   -> showHelpExit();
+                    case "help"   -> showHelpMain();
+                    default       -> showHelpMain();
                 }
                 break;
             case 1:
             default:
-                showHelpMain(output);
+                showHelpMain();
                 break;
         }
     }
 
-    private static void putItemNoToSandwich(Refrigerator refrigerator, Sandwich sandwich, int itemNo, BufferedWriter output) throws IOException, UnsupportedProductException {
+    private static void putItemNoToSandwich(Refrigerator refrigerator, Sandwich sandwich, int itemNo) throws UnsupportedProductException {
         if (!refrigerator.isOpen()) {
-            output.write("Сначала откройте холодильник (команда open)\n");
+            System.out.println("Сначала откройте холодильник (команда open)");
             return;
         }
 
@@ -156,7 +152,7 @@ public class Example1 {
         }
 
         if (itemByNo == null) {
-            output.write("Продукт с порядковым номером " + itemNo + " не найден");
+            System.out.println("Продукт с порядковым номером " + itemNo + " не найден");
             return;
         }
 
@@ -164,20 +160,20 @@ public class Example1 {
 
         sandwich.add(part);
 
-        output.write("Добавлен ингридиент " + part.getName() + ": " + part.getQuantity() + ' ' + part.getUnit());
+        System.out.println("Добавлен ингридиент " + part.getName() + ": " + part.getQuantity() + ' ' + part.getUnit());
     }
 
-    private static void commitRefrigerator(Refrigerator refrigerator, RefrigeratorIo refrigeratorIo, BufferedWriter output, File file) throws IOException, RefrigeratorStateException {
+    private static void commitRefrigerator(Refrigerator refrigerator, RefrigeratorIo refrigeratorIo, File file) throws IOException, RefrigeratorStateException {
         if (!file.setWritable(true)) {
-            output.write("Файл " + file.getPath() + " недоступен для записи");
+            System.out.println("Файл " + file.getPath() + " недоступен для записи");
         }
 
         refrigeratorIo.writeToFile(refrigerator, file);
 
-        output.write("Холодильник сохранен в " + file.getPath() + "\n");
+        System.out.println("Холодильник сохранен в " + file.getPath());
     }
 
-    private static void commitSandwich(Sandwich sandwich, SandwichWriter sandwichWriter, BufferedWriter output) throws IOException {
+    private static void commitSandwich(Sandwich sandwich, SandwichWriter sandwichWriter) throws IOException {
         File file = null;
         for (var i = 0; i < 1000; i++) {
             file = new File("./out/sandwich_" + i);
@@ -189,57 +185,56 @@ public class Example1 {
         }
 
         if (file == null) {
-            output.write("Не удалось создать файл для сохранения бутерброда после 1000 попыток");
-            output.newLine();
+            System.out.println("Не удалось создать файл для сохранения бутерброда после 1000 попыток");
 
             return;
         }
 
         sandwichWriter.writeToFile(sandwich, file);
 
-        output.write("Бутерброд сохранен в " + file.getPath() + "\n");
+        System.out.println("Бутерброд сохранен в " + file.getPath());
     }
 
-    private static void showSandwich(Sandwich sandwich, BufferedWriter output) throws IOException {
-        output.write("Бутерброд:\n");
+    private static void showSandwich(Sandwich sandwich) {
+        System.out.println("Бутерброд:");
 
         var i = 1;
         for (var item: sandwich.getRecipe()) {
-            output.write(i + ". " + item.getName() + ":\t" + item.getQuantity() + ' ' + item.getUnit() + "\n");
+            System.out.println(i + ". " + item.getName() + ":\t" + item.getQuantity() + ' ' + item.getUnit());
             i++;
         }
     }
 
-    private static void showRefrigerator(Refrigerator refrigerator, BufferedWriter output) throws IOException {
+    private static void showRefrigerator(Refrigerator refrigerator) {
         if (!refrigerator.isOpen()) {
-            output.write("Сначала откройте холодильник (команда open)\n");
+            System.out.println("Сначала откройте холодильник (команда open)");
             return;
         }
 
-        output.write("Холодильник:\n");
+        System.out.println("Холодильник:");
 
         var i = 1;
         for (var item: refrigerator.getContent()) {
-            output.write(i + ". " + item.getName() + ":\t" + item.getQuantity() + ' ' + item.getUnit() + "\n");
+            System.out.println(i + ". " + item.getName() + ":\t" + item.getQuantity() + ' ' + item.getUnit());
             i++;
         }
     }
 
-    private static void openRefrigerator(Refrigerator refrigerator, BufferedWriter output) throws IOException {
+    private static void openRefrigerator(Refrigerator refrigerator) {
         if (!refrigerator.isOpen()) {
             refrigerator.open();
-            output.write("Холодильник успешно открыт\n");
+            System.out.println("Холодильник успешно открыт");
         } else {
-            output.write("Холодильник уже открыт\n");
+            System.out.println("Холодильник уже открыт");
         }
     }
 
-    private static void closeRefrigerator(Refrigerator refrigerator, BufferedWriter output) throws IOException {
+    private static void closeRefrigerator(Refrigerator refrigerator) {
         if (refrigerator.isOpen()) {
             refrigerator.close();
-            output.write("Холодильник успешно закрыт\n");
+            System.out.println("Холодильник успешно закрыт");
         } else {
-            output.write("Холодильник уже закрыт\n");
+            System.out.println("Холодильник уже закрыт");
         }
     }
 
@@ -267,57 +262,57 @@ public class Example1 {
         return refrigeratorFile;
     }
 
-    private static void showHelpExit(BufferedWriter output) throws IOException {
-        output.write("Завершить работу и выйти\n");
+    private static void showHelpExit() {
+        System.out.println("Завершить работу и выйти");
     }
 
-    private static void showHelpPut(BufferedWriter output) throws IOException {
-        output.write("Положить часть продукта на бутерброд\n");
+    private static void showHelpPut() {
+        System.out.println("Положить часть продукта на бутерброд");
     }
 
-    private static void showHelpReset(BufferedWriter output) throws IOException {
-        output.write("Отменить все несохраненные изменения и обнулить бутерброд\n");
+    private static void showHelpReset() {
+        System.out.println("Отменить все несохраненные изменения и обнулить бутерброд");
     }
 
-    private static void showHelpCommit(BufferedWriter output) throws IOException {
-        output.write("Сохранить состояние холодильника и бутерброда\n");
+    private static void showHelpCommit() {
+        System.out.println("Сохранить состояние холодильника и бутерброда");
     }
 
-    private static void showHelpClose(BufferedWriter output) throws IOException {
-        output.write("Закрыть холодильник\n");
+    private static void showHelpClose() {
+        System.out.println("Закрыть холодильник");
     }
 
-    private static void showHelpOpen(BufferedWriter output) throws IOException {
-        output.write("Открыть холодильник\n");
+    private static void showHelpOpen() {
+        System.out.println("Открыть холодильник");
     }
 
-    private static void showHelpShow(String[] command, BufferedWriter output) throws IOException {
+    private static void showHelpShow(String[] command) {
         switch (command.length) {
             case 3:
                 switch (command[2]) {
-                    case "ref" -> showHelpShowRefrigerator(output);
-                    case "sw"  -> showHelpShowSandwich(output);
-                    default    -> showHelpShowMain(output);
+                    case "ref" -> showHelpShowRefrigerator();
+                    case "sw"  -> showHelpShowSandwich();
+                    default    -> showHelpShowMain();
                 }
                 break;
             case 2:
-                showHelpShowMain(output);
+                showHelpShowMain();
                 break;
         }
     }
 
-    private static void showHelpShowRefrigerator(BufferedWriter output) throws IOException {
-        output.write("Показать содержимое холодильника\n");
+    private static void showHelpShowRefrigerator() {
+        System.out.println("Показать содержимое холодильника");
 
     }
 
-    private static void showHelpShowSandwich(BufferedWriter output) throws IOException {
-        output.write("Показать будерброд\n");
+    private static void showHelpShowSandwich() {
+        System.out.println("Показать будерброд");
 
     }
 
-    private static void showHelpShowMain(BufferedWriter output) throws IOException {
-        output.write("""
+    private static void showHelpShowMain() {
+        System.out.println("""
                 Доступные команды
                 \tshow ref - показать содержимое холодильника
                 \tshow sw - показать будерброд
@@ -325,8 +320,8 @@ public class Example1 {
 
     }
 
-    private static void showHelpMain(BufferedWriter output) throws IOException {
-        output.write("""
+    private static void showHelpMain() {
+        System.out.println("""
                 Доступные команды
                 \tshow - показать содержимое, введите help show для получения подробностей
                 \topen - открыть холодильник

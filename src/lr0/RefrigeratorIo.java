@@ -42,6 +42,8 @@ public class RefrigeratorIo {
             foodItems.add(Eatable.create(name, quantity));
         }
 
+        reader.close();
+
         return new Refrigerator(foodItems);
     }
 
