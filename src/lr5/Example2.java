@@ -1,4 +1,5 @@
 package lr5;
+
 class CharRange {
     private final char from;
     private final char to;

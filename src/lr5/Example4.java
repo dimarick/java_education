@@ -5,8 +5,8 @@ class IntAndCharContainer {
     private final char c;
 
     public IntAndCharContainer(double initializer) {
-        this.i = (int)((initializer - (int)initializer) * 100);
-        this.c = (char)((int)initializer % Character.MAX_VALUE + 1);
+        this.i = (int) ((initializer - (int) initializer) * 100);
+        this.c = (char) ((int) initializer % Character.MAX_VALUE + 1);
     }
 
     public IntAndCharContainer() {
