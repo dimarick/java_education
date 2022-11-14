@@ -25,9 +25,9 @@ public class Example1 {
         var exit = false;
 
         System.out.println("""
-                Программа создания бутербродов
-                Введите help для получения справки
-                """);
+            Программа создания бутербродов
+            Введите help для получения справки
+            """);
 
         while (!exit) {
             System.out.print("> ");
@@ -100,7 +100,7 @@ public class Example1 {
         errors.addAll(sandwichValidator.validate(sandwich));
         errors.addAll(refrigeratorValidator.validate(refrigerator));
 
-        for (var error: errors) {
+        for (var error : errors) {
             System.out.println(error.getMessage());
         }
 
@@ -117,15 +117,15 @@ public class Example1 {
             case 2:
             case 3:
                 switch (command[1]) {
-                    case "show"   -> showHelpShow(command);
-                    case "open"   -> showHelpOpen();
-                    case "close"  -> showHelpClose();
+                    case "show" -> showHelpShow(command);
+                    case "open" -> showHelpOpen();
+                    case "close" -> showHelpClose();
                     case "commit" -> showHelpCommit();
-                    case "reset"  -> showHelpReset();
-                    case "put"    -> showHelpPut();
-                    case "exit"   -> showHelpExit();
-                    case "help"   -> showHelpMain();
-                    default       -> showHelpMain();
+                    case "reset" -> showHelpReset();
+                    case "put" -> showHelpPut();
+                    case "exit" -> showHelpExit();
+                    case "help" -> showHelpMain();
+                    default -> showHelpMain();
                 }
                 break;
             case 1:
@@ -199,7 +199,7 @@ public class Example1 {
         System.out.println("Бутерброд:");
 
         var i = 1;
-        for (var item: sandwich.getRecipe()) {
+        for (var item : sandwich.getRecipe()) {
             System.out.println(i + ". " + item.getName() + ":\t" + item.getQuantity() + ' ' + item.getUnit());
             i++;
         }
@@ -214,7 +214,7 @@ public class Example1 {
         System.out.println("Холодильник:");
 
         var i = 1;
-        for (var item: refrigerator.getContent()) {
+        for (var item : refrigerator.getContent()) {
             System.out.println(i + ". " + item.getName() + ":\t" + item.getQuantity() + ' ' + item.getUnit());
             i++;
         }
@@ -291,8 +291,8 @@ public class Example1 {
             case 3:
                 switch (command[2]) {
                     case "ref" -> showHelpShowRefrigerator();
-                    case "sw"  -> showHelpShowSandwich();
-                    default    -> showHelpShowMain();
+                    case "sw" -> showHelpShowSandwich();
+                    default -> showHelpShowMain();
                 }
                 break;
             case 2:
@@ -313,24 +313,24 @@ public class Example1 {
 
     private static void showHelpShowMain() {
         System.out.println("""
-                Доступные команды
-                \tshow ref - показать содержимое холодильника
-                \tshow sw - показать будерброд
-                """);
+            Доступные команды
+            \tshow ref - показать содержимое холодильника
+            \tshow sw - показать будерброд
+            """);
 
     }
 
     private static void showHelpMain() {
         System.out.println("""
-                Доступные команды
-                \tshow - показать содержимое, введите help show для получения подробностей
-                \topen - открыть холодильник
-                \tclose - закрыть холодильник
-                \tcommit - сохранить состояние холодильника и бутерброда
-                \treset - отменить все несохраненные изменения и обнулить бутерброд
-                \tput <[0-9]+> - положить часть продукта на бутерброд
-                \texit - завершить работу и выйти
-                \thelp - показать эту справку
-                """);
+            Доступные команды
+            \tshow - показать содержимое, введите help show для получения подробностей
+            \topen - открыть холодильник
+            \tclose - закрыть холодильник
+            \tcommit - сохранить состояние холодильника и бутерброда
+            \treset - отменить все несохраненные изменения и обнулить бутерброд
+            \tput <[0-9]+> - положить часть продукта на бутерброд
+            \texit - завершить работу и выйти
+            \thelp - показать эту справку
+            """);
     }
 }

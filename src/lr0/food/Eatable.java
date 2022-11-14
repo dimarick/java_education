@@ -2,7 +2,9 @@ package lr0.food;
 
 public interface Eatable {
     String getName();
+
     String getUnit();
+
     int getQuantity();
 
     static Eatable create(String name, int quantity) throws UnsupportedProductException {

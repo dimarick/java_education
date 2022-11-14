@@ -10,7 +10,7 @@ public class SandwichWriter {
         var writer = new BufferedWriter(new FileWriter(file));
 
         var i = 1;
-        for (var item: sandwich.getRecipe()) {
+        for (var item : sandwich.getRecipe()) {
             writer.write(i + ". " + item.getName() + ": " + item.getQuantity() + ' ' + item.getUnit() + "\n");
             i++;
         }

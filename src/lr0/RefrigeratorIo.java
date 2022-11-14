@@ -53,8 +53,8 @@ public class RefrigeratorIo {
         if (refrigerator.isOpen()) {
             throw new RefrigeratorStateException();
         }
-        
-        for (var item: refrigerator.getContent()) {
+
+        for (var item : refrigerator.getContent()) {
             writer.write(item.getName().replace(",", "\\,") + "," + item.getQuantity() + "\n");
         }
 
