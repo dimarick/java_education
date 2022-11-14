@@ -10,8 +10,8 @@ public class Example4 {
             }
         }
 
-        for (var row: array) {
-            for (var column: row) {
+        for (var row : array) {
+            for (var column : row) {
                 System.out.print(column);
             }
             System.out.println();

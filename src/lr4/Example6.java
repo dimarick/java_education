@@ -29,9 +29,9 @@ public class Example6 {
         }
 
         Integer[][][] integers = {array, array2, array3};
-        for (var a: integers) {
-            for (var row: a) {
-                for (var column: row) {
+        for (var a : integers) {
+            for (var row : a) {
+                for (var column : row) {
                     System.out.print(Character.toChars(column));
                 }
                 System.out.println();

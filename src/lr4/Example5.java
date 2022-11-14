@@ -20,15 +20,15 @@ public class Example5 {
             }
         }
 
-        for (var row: array) {
-            for (var column: row) {
+        for (var row : array) {
+            for (var column : row) {
                 System.out.print(Character.toChars(column));
             }
             System.out.println();
         }
 
-        for (var row: array2) {
-            for (var column: row) {
+        for (var row : array2) {
+            for (var column : row) {
                 System.out.print(Character.toChars(column));
             }
             System.out.println();

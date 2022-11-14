@@ -49,8 +49,8 @@ public class Example7 {
             xOffset++;
         }
 
-        for (var row: array) {
-            for (var column: row) {
+        for (var row : array) {
+            for (var column : row) {
                 System.out.print(column);
             }
             System.out.println();
