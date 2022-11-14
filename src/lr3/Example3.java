@@ -8,9 +8,9 @@ import java.util.*;
 
 public class Example3 {
     static private class FibonacciIterator implements Iterator<BigInteger> {
-        final private BigInteger[] prev = {new BigInteger("0"), new BigInteger("1")};
+        private final BigInteger[] prev = {new BigInteger("0"), new BigInteger("1")};
         private Integer current;
-        final private Integer max;
+        private final Integer max;
 
         public FibonacciIterator(Integer max) {
             this.max = max;
