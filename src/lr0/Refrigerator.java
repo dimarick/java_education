@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Refrigerator {
     private boolean open = false;
-    final private Map<String, Eatable> content;
+    private final Map<String, Eatable> content;
 
     public Refrigerator(Collection<Eatable> content) {
         this.content = new HashMap<>();

@@ -1,7 +1,7 @@
 package lr0.food;
 
 public class Sausage extends AbstractSlicable {
-    final private static int SLICE_SIZE = 50;
+    private final static int SLICE_SIZE = 50;
 
     public Sausage(int quantity) {
         super(quantity, SLICE_SIZE);

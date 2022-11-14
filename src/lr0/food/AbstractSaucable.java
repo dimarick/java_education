@@ -3,8 +3,8 @@ package lr0.food;
 import java.util.Random;
 
 public abstract class AbstractSaucable extends AbstractEatable implements Saucable {
-    final private int maxDropSize;
-    final private int minDropSize;
+    private final int maxDropSize;
+    private final int minDropSize;
 
     public AbstractSaucable(int quantity, int minDropSize, int maxDropSize) {
         super(quantity);

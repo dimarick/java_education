@@ -1,7 +1,7 @@
 package lr0.food;
 
 public abstract class AbstractSlicable extends AbstractEatable implements Slicable {
-    final private int sliceSize;
+    private final int sliceSize;
 
     public AbstractSlicable(int quantity, int sliceSize) {
         super(quantity);

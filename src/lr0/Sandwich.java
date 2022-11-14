@@ -5,7 +5,7 @@ import lr0.food.Eatable;
 import java.util.*;
 
 public class Sandwich {
-    final private Deque<Eatable> content;
+    private final Deque<Eatable> content;
 
     public Sandwich() {
         this.content = new LinkedList<>();

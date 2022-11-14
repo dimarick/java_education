@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class RefrigeratorIo {
-    final private Pattern csvPattern;
+    private final Pattern csvPattern;
 
     /**
      * Почти как настоящий csv только без поддержки кавычек
