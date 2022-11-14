@@ -40,7 +40,7 @@ public class Example3 {
     public static void main(String[] args) throws IOException {
         var in = new Scanner(System.in);
 
-        int maxAllowed = (int)Math.pow(2, 30);
+        int maxAllowed = (int) Math.pow(2, 30);
         System.out.println("Введите число от 0 до " + maxAllowed + ": ");
 
         var value = in.nextInt();

@@ -8,7 +8,7 @@ public class Example7 {
         var array = new Character[10];
 
         for (char i = 0; i < 10; i++) {
-            array[i] = (char)('a' + i * 2);
+            array[i] = (char) ('a' + i * 2);
         }
 
         System.out.println(Arrays.toString(array));
