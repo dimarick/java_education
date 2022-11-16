@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Example3 {
     static private class FibonacciIterator implements Iterator<BigInteger> {
-        private final BigInteger[] prev = {new BigInteger("0"), new BigInteger("1")};
+        private final BigInteger[] prev = {BigInteger.ZERO, BigInteger.ONE};
         private Integer current;
         private final Integer max;
 
@@ -25,7 +25,7 @@ public class Example3 {
             current++;
 
             if (current == 1) {
-                return new BigInteger("1");
+                return BigInteger.ONE;
             }
 
             var result = prev[0].add(prev[1]);

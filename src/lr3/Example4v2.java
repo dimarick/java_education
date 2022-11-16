@@ -19,7 +19,7 @@ public class Example4v2 {
         var min = first.min(second);
         var max = first.max(second);
 
-        BigInteger one = new BigInteger("1");
+        BigInteger one = BigInteger.ONE;
 
         var writer = new BufferedWriter(new PrintWriter(System.out));
 
