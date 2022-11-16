@@ -10,7 +10,7 @@ public class Example2 {
 
         var value = in.nextBigInteger();
 
-        if (value.mod(new BigInteger("5")).equals(new BigInteger("2")) && value.mod(new BigInteger("7")).equals(new BigInteger("1"))) {
+        if (value.mod(BigInteger.valueOf(5)).equals(BigInteger.valueOf(2)) && value.mod(BigInteger.valueOf(7)).equals(BigInteger.valueOf(1))) {
             System.out.println("Это число удовлетворяет условиям");
         } else {
             System.out.println("Это число НЕ удовлетворяет условиям");

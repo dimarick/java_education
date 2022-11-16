@@ -10,7 +10,7 @@ public class Example1 {
 
         var value = in.nextBigInteger();
 
-        if (value.mod(new BigInteger("3")).equals(new BigInteger("0"))) {
+        if (value.mod(BigInteger.valueOf(3)).equals(BigInteger.ZERO)) {
             System.out.println("Это число делится на 3");
         } else {
             System.out.println("Это число НЕ делится на 3");
