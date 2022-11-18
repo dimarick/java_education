@@ -11,9 +11,11 @@ class Aggregate {
     static int min(int value1, int... values) {
         return mergeArgs(value1, values).min().orElse(Integer.MAX_VALUE);
     }
+
     static int max(int value1, int... values) {
         return mergeArgs(value1, values).max().orElse(Integer.MAX_VALUE);
     }
+
     static double average(int value1, int... values) {
         return mergeArgs(value1, values).average().orElse(Double.POSITIVE_INFINITY);
     }

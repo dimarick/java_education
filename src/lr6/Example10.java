@@ -16,7 +16,7 @@ public class Example10 {
         var min = Integer.MAX_VALUE;
         var max = Integer.MIN_VALUE;
 
-        for (var i: array) {
+        for (var i : array) {
             if (i < min) {
                 min = i;
             }

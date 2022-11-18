@@ -8,6 +8,6 @@ public class Example7 {
     }
 
     private static int[] mapToInt(Character[] array) {
-        return Arrays.stream(array).mapToInt((c) -> (int)c).toArray();
+        return Arrays.stream(array).mapToInt((c) -> (int) c).toArray();
     }
 }
