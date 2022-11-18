@@ -29,7 +29,7 @@ public class Example1 {
             dataWriter1.writeUTF("Привет,\n");
             dataWriter1.writeUTF("мир!\n");
             dataWriter1.writeDouble(42.123);
-            dataWriter1.writeDouble(1.0/3);
+            dataWriter1.writeDouble(1.0 / 3);
             dataWriter1.writeDouble(Math.PI);
             dataWriter1.writeDouble(Math.E);
             dataWriter1.writeDouble(Math.pow(Math.PI, Math.E));
