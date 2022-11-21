@@ -27,16 +27,17 @@ public class Task1017 {
     }
 
     static long getStairsVariants(short columns, short value, long[][] cache) {
-        int maxStep = getMaxFirstStep(columns, value);
         long result = 0;
 
         if (columns == 2) {
-            return maxStep;
+            return getMaxFirstStep(columns, value);
         }
 
         if (cache[columns][value] != 0) {
             return cache[columns][value];
         }
+
+        int maxStep = getMaxFirstStep(columns, value);
 
         for (short k = 1; k <= maxStep; k++) {
             result += getStairsVariants((short) (columns - 1), (short) (value - columns * k), cache);
